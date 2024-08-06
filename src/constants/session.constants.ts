@@ -1,0 +1,3 @@
+export const SESSION_TOKEN_KEY = "SESSION_TOKEN";
+export const SESSION_USER_DATA_KEY = "USER_DATA";
+export const SESSION_USER_ROLE_KEY = "USER_ROLE";

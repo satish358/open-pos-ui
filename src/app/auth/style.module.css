@@ -1,0 +1,21 @@
+.authCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  background: #654ea3; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #eaafc8,
+    #654ea3
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #eaafc8, #654ea3);
+}
+
+.authContainer {
+  width: 600px;
+}
+.authCardBody {
+  padding: 40px;
+}
