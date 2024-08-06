@@ -7,6 +7,7 @@ import {
 import { APIResponseType, LoginResponseType } from "@/constants/types";
 import axios from "axios";
 import AlertService from "./AlertService";
+import ApiService from "./ApiService";
 
 // TYPES
 
@@ -16,9 +17,8 @@ export type LoginProp = {
 };
 
 export default class AuthService {
-  static login = (payload: LoginProp, router: any) => {
-    axios
-      .post(`${API_BASE_URL}/auth/login`, payload)
+  login(payload: LoginProp, router: any) {
+    ApiService.postWithouthAuth(`/auth/login`, payload)
       .then((res) => {
         const response = res.data as APIResponseType<LoginResponseType>;
         const userRoles = response.data.user.roles.map((item) => item.name);
@@ -36,5 +36,5 @@ export default class AuthService {
       .catch((error) => {
         AlertService.error("Try Again", "Wrong Credentials !");
       });
-  };
+  }
 }

@@ -11,8 +11,9 @@ import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const router = useRouter();
+  const authService = new AuthService();
   const onSubmit = (values: any) => {
-    AuthService.login(values, router);
+    authService.login(values, router);
     console.log("VALUES: ", values);
   };
   const formikConfig = {

@@ -1,14 +1,49 @@
 "use client";
 import Input from "@/components/Input";
+import { ShopType } from "@/constants/types";
+import ShopService from "@/services/ShopService";
 import { Button, Grid } from "@mui/material";
-import { Form, Formik } from "formik";
-import React from "react";
+import { Form, Formik, FormikHelpers } from "formik";
+import React, { useState } from "react";
+import * as Yup from "yup";
 
+const emptyShop: ShopType = {
+  name: "",
+  address: "",
+  logoUrl: "",
+  email: "",
+  contact: "",
+};
 const CreateShopAdminPage = () => {
+  const [formikInitialVals, setFormikInitialVals] =
+    useState<ShopType>(emptyShop);
+
+  const onFormSubmit = (
+    values: ShopType,
+    formikHelpers: FormikHelpers<ShopType>
+  ) => {
+    ShopService.getInstance()
+      .createShop(values)
+      .then((res) => {
+        formikHelpers.resetForm();
+      });
+    console.log(values);
+  };
   return (
     <div className="card p-5">
       <h3 className="page-title">Register new shop</h3> <hr />
-      <Formik initialValues={{}} onSubmit={() => {}}>
+      <Formik
+        initialValues={formikInitialVals}
+        onSubmit={onFormSubmit}
+        validationSchema={Yup.object({
+          name: Yup.string().required().min(3).max(50),
+          address: Yup.string().required().min(3).max(100),
+          logoUrl: Yup.string().url().required(),
+          email: Yup.string().email().required(),
+          contact: Yup.string().required().min(10).max(13),
+        })}
+        enableReinitialize
+      >
         <Form>
           <Grid container className="mt-3">
             <Grid xs={12} md={6}>
